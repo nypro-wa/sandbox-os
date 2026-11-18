@@ -1,0 +1,37 @@
+{
+  "autoMemoryEnabled": false,
+  "permissions": {
+    "deny": [
+      "Bash(git push * main)",
+      "Bash(git push * main:*)",
+      "Bash(git push * HEAD:main*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git merge:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh pr review:*)",
+      "Bash(gh pr close:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh release:*)",
+      "Bash(gh auth:*)",
+      "Bash(git config:*)",
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/.claude/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "excludedCommands": [
+      "~/.config/orca/linux-orca-cli-shim/orca linear *",
+      "~/.config/orca/linux-orca-cli-shim/orca orchestration *",
+      "orca orchestration *"
+    ]
+  }
+}
