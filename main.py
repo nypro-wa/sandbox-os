@@ -18,6 +18,13 @@ def list_items() -> list[Item]:
     return list(_items.values())
 
 
+# Declared before /items/{item_id}: FastAPI matches routes in order, and "count" would
+# otherwise be parsed as an item id and rejected with 422.
+@app.get("/items/count")
+def count_items() -> dict:
+    return {"count": len(_items)}
+
+
 @app.get("/items/{item_id}")
 def get_item(item_id: int) -> Item:
     if item_id not in _items:
