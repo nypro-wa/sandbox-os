@@ -27,10 +27,10 @@ def create(client, name="widget", description=""):
     return response.json()
 
 
-# GET /health
+# GET /healthz
 
 def test_health_returns_ok(client):
-    response = client.get("/health")
+    response = client.get("/healthz")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
 

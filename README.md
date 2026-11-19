@@ -13,7 +13,7 @@ uvicorn main:app --reload
 
 ## Endpoints
 
-- `GET /health` — health check
+- `GET /healthz` — health check
 - `GET /items` — list all items
 - `GET /items/count` — number of items, as `{"count": <n>}`
 - `GET /items/{id}` — get one item

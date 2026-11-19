@@ -8,7 +8,7 @@ _items: dict[int, Item] = {}
 _next_id = 1
 
 
-@app.get("/health")
+@app.get("/healthz")
 def health() -> dict:
     return {"status": "ok"}
 
