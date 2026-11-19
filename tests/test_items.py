@@ -51,6 +51,34 @@ def test_list_items_returns_created_items(client):
     assert response.json() == [first, second]
 
 
+# GET /items/count
+
+def test_count_items_empty(client):
+    response = client.get("/items/count")
+    assert response.status_code == 200
+    assert response.json() == {"count": 0}
+
+
+def test_count_items_follows_create_and_delete(client):
+    first = create(client, "first")
+    create(client, "second")
+    response = client.get("/items/count")
+    assert response.status_code == 200
+    assert response.json() == {"count": 2}
+    assert client.delete(f"/items/{first['id']}").status_code == 204
+    response = client.get("/items/count")
+    assert response.status_code == 200
+    assert response.json() == {"count": 1}
+
+
+def test_count_route_does_not_shadow_get_item(client):
+    created = create(client, "widget")
+    assert client.get("/items/count").json() == {"count": 1}
+    response = client.get(f"/items/{created['id']}")
+    assert response.status_code == 200
+    assert response.json() == created
+
+
 # GET /items/{id}
 
 def test_get_item_returns_item(client):
