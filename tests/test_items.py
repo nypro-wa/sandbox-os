@@ -124,6 +124,12 @@ def test_create_item_with_valid_name_keeps_name_unchanged(client):
     assert response.json()["name"] == "widget"
 
 
+def test_create_item_keeps_surrounding_spaces_in_name(client):
+    response = client.post("/items", json={"name": "  widget  "})
+    assert response.status_code == 201
+    assert response.json()["name"] == "  widget  "
+
+
 # DELETE /items/{id}
 
 def test_delete_item_removes_it(client):
