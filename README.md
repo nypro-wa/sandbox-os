@@ -27,7 +27,7 @@ An item has these fields (see `models.py`):
 | Field | Type | On `POST /items` | Notes |
 |---|---|---|---|
 | `id` | integer | not sent | Set by the server |
-| `name` | string | required | |
+| `name` | string | required | May not be empty or only whitespace |
 | `description` | string | optional | Defaults to an empty string |
 
 ## Testing

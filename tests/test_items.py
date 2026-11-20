@@ -118,6 +118,25 @@ def test_create_item_without_name_is_rejected(client):
     assert response.status_code == 422
 
 
+def test_create_item_with_valid_name_keeps_name_unchanged(client):
+    response = client.post("/items", json={"name": "widget"})
+    assert response.status_code == 201
+    assert response.json()["name"] == "widget"
+
+
+@pytest.mark.parametrize("name", ["", "   "])
+def test_create_item_rejects_empty_or_whitespace_name(client, name):
+    response = client.post("/items", json={"name": name})
+    assert response.status_code == 422
+    assert client.get("/items").json() == []
+
+
+def test_create_item_keeps_surrounding_spaces_in_name(client):
+    response = client.post("/items", json={"name": "  widget  "})
+    assert response.status_code == 201
+    assert response.json()["name"] == "  widget  "
+
+
 # DELETE /items/{id}
 
 def test_delete_item_removes_it(client):
