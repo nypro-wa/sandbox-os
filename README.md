@@ -20,6 +20,16 @@ uvicorn main:app --reload
 - `POST /items` — create an item
 - `DELETE /items/{id}` — delete an item
 
+## Item
+
+An item has these fields (see `models.py`):
+
+| Field | Type | On `POST /items` | Notes |
+|---|---|---|---|
+| `id` | integer | not sent | Set by the server |
+| `name` | string | required | |
+| `description` | string | optional | Defaults to an empty string |
+
 ## Testing
 
 Tests live in `tests/` and use pytest with FastAPI's `TestClient`. Install the test
