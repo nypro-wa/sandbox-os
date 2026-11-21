@@ -56,7 +56,9 @@ Tests use FastAPI's `TestClient` (`from fastapi.testclient import TestClient`) a
   git config does that; never add or change credentials.
 - Branch: the one in your spec, `agent/<issue-id-lowercase>-<slug>`. Commit messages:
   `<ISSUE-ID>: <what>`.
-- Push: `git push -u origin HEAD`. Never push to `main`, never force-push.
+- Push: `git push -u origin HEAD:<branch from your spec>`. Orca prefixes your local branch with
+  `nypro-wa/`; the explicit target keeps the planned name on GitHub. Never push to `main`, never
+  force-push.
 - Open the pull request, from the root of your worktree:
 
   ```bash
@@ -65,7 +67,9 @@ Tests use FastAPI's `TestClient` (`from fastapi.testclient import TestClient`) a
 
   The body follows `.github/pull_request_template.md`. Write the body file inside your worktree
   under `.git-pr-body.md` (ignored), not in `/tmp`.
-- Update it on a repair round with `GH_CONFIG_DIR=$HOME/.config/gh-agent gh pr edit <n> --repo nypro-wa/sandbox-os --body-file <file>`.
+- Update it on a repair round, as one plain command, with
+  `GH_CONFIG_DIR=$HOME/.config/gh-agent gh api -X PATCH repos/nypro-wa/sandbox-os/pulls/<n> -F body=@.git-pr-body.md`.
+  Not `gh pr edit`: it fails on this repository with a Projects-classic GraphQL error.
 
 ## Linear
 
